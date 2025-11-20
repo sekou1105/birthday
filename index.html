@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>祝你生日快乐 🎂</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 背景插图（纯前端 SVG，低不透明度用于装饰） -->
+  <svg class="bg-illustration" aria-hidden="true" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1">
+        <stop offset="0%" stop-color="#ffd1e6" />
+        <stop offset="100%" stop-color="#ffb4c7" />
+      </linearGradient>
+      <linearGradient id="g2" x1="0" x2="1">
+        <stop offset="0%" stop-color="#bde0fe" />
+        <stop offset="100%" stop-color="#9ad0ff" />
+      </linearGradient>
+      <linearGradient id="g3" x1="0" x2="1">
+        <stop offset="0%" stop-color="#c9f0d6" />
+        <stop offset="100%" stop-color="#a8e6c1" />
+      </linearGradient>
+      <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="60" />
+      </filter>
+    </defs>
+    <g class="blobs" filter="url(#blur)" opacity="0.55">
+      <circle class="b1" cx="150" cy="140" r="220" fill="url(#g1)" />
+      <circle class="b2" cx="1050" cy="120" r="180" fill="url(#g2)" />
+      <circle class="b3" cx="640" cy="660" r="260" fill="url(#g3)" />
+    </g>
+  </svg>
+  <main class="page">
+    <section class="card">
+      <header class="hero">
+        <h1 id="greeting">瑾瑾，生日快乐！</h1>
+        <p class="sub">为瑾瑾点亮祝福与倒计时，静候温暖时刻 ✨</p>
+      </header>
+
+      <div class="widgets">
+        <div class="countdown" aria-live="polite">
+          <h2>倒计时</h2>
+          <div id="countdownDisplay">正在载入倒计时…</div>
+        </div>
+
+        <div class="cake-area">
+          <h2>蛋糕</h2>
+          <div class="cake" id="cake" aria-hidden="true">
+            <!-- 精致 SVG 蛋糕：三层蛋糕、糖霜装饰、糖果与蜡烛 -->
+            <svg viewBox="0 0 400 320" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="生日蛋糕">
+              <defs>
+                <linearGradient id="cakeGrad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#fff0f4" />
+                  <stop offset="100%" stop-color="#ffd6e8" />
+                </linearGradient>
+                <linearGradient id="layerGrad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#fff5f8" />
+                  <stop offset="100%" stop-color="#ffd1e6" />
+                </linearGradient>
+                <filter id="cakeShadow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#d8a7b8" flood-opacity="0.12" />
+                </filter>
+              </defs>
+
+              <!-- 底层阴影 -->
+              <ellipse cx="200" cy="280" rx="120" ry="22" fill="#f7dfe6" opacity="0.6"/>
+
+              <!-- 第三层（底部最大） -->
+              <g filter="url(#cakeShadow)">
+                <rect x="60" y="170" rx="28" ry="28" width="280" height="80" fill="url(#layerGrad)" />
+                <!-- 糖霜下垂装饰 -->
+                <path d="M70 170c10 18 30 18 40 0s30-18 40 0 30 18 40 0 30-18 40 0 30 18 40 0" fill="#fff" opacity="0.95"/>
+              </g>
+
+              <!-- 中层 -->
+              <rect x="90" y="120" rx="24" ry="24" width="220" height="60" fill="url(#cakeGrad)" />
+              <path d="M100 120c8 14 24 14 32 0s24-14 32 0 24 14 32 0 24-14 32 0" fill="#fff" opacity="0.95"/>
+
+              <!-- 顶层（小） -->
+              <rect x="140" y="80" rx="18" ry="18" width="120" height="44" fill="#fff5f7" />
+              <path d="M150 80c6 10 18 10 24 0s18-10 24 0 18 10 24 0" fill="#fff" opacity="0.98"/>
+
+              <!-- 糖果装饰（小圆点） -->
+              <g>
+                <circle cx="120" cy="150" r="6" fill="#ff7aa2" />
+                <circle cx="160" cy="140" r="5" fill="#ffd166" />
+                <circle cx="240" cy="155" r="6" fill="#9ad0ff" />
+                <circle cx="280" cy="140" r="5" fill="#bde0fe" />
+                <circle cx="200" cy="200" r="6" fill="#c9f0d6" />
+              </g>
+
+              <!-- 蜡烛与烛焰（保留 id=flame 以供 JS 控制） -->
+              <g id="candle" transform="translate(200,64)">
+                <rect x="-6" y="-28" width="12" height="28" rx="3" fill="#ffd166" />
+                <rect x="-4" y="-26" width="8" height="24" rx="2" fill="#fff6e0" opacity="0.7"/>
+                <g id="flame">
+                  <path d="M0 -34c4 4 6 10 0 16c-6-6-4-12 0-16z" fill="#ffd166" />
+                  <path d="M0 -32c2 2 3 6 0 9c-3-3-2-6 0-9z" fill="#ff7a45" />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+  <!-- 页面左右侧装饰（点击可庆祝） -->
+  <div class="side side-left" role="region" aria-label="左侧装饰">
+    <div class="side-card">
+      <div class="side-title">瑾瑾生日快乐</div>
+      <button id="sideCelebrateLeft" class="side-btn">🎉 庆祝</button>
+    </div>
+  </div>
+  <div class="side side-right" role="region" aria-label="右侧装饰">
+    <div class="side-card">
+      <div class="side-title">愿你快乐每一天</div>
+      <button id="sideCelebrateRight" class="side-btn">点我庆祝</button>
+    </div>
+  </div>
+
+  <!-- 气球容器 -->
+  <div id="balloons" aria-hidden="true"></div>
+
+  <!-- 彩屑画布（覆盖） -->
+  <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

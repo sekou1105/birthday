@@ -1,0 +1,98 @@
+:root{
+  --bg:#f6f9fc;
+  --card:#ffffff;
+  --panel-bg: rgba(255,230,215,0.45);
+  --accent:#ff7aa2;
+  --accent-2:#ffb86b;
+  --muted: #5b6b75;
+  --glass: rgba(15,23,42,0.02);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Segoe UI, Roboto, "Helvetica Neue", Arial;background:linear-gradient(180deg,#fff5eb 0%, #ffe6d1 100%);color:#2b2b2b}
+
+.page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+.card{width:100%;max-width:920px;background:linear-gradient(180deg, rgba(255,250,245,0.88), rgba(255,247,241,0.96));border-radius:16px;padding:28px;box-shadow:0 10px 30px rgba(15,23,42,0.08);backdrop-filter: blur(4px);}
+
+/* 确保内容在 SVG 背景之上 */
+.bg-illustration{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;mix-blend-mode:screen}
+.page{position:relative;z-index:2}
+.card{position:relative;z-index:3}
+
+/* 背景 blob 轻微漂浮动画 */
+.bg-illustration .blobs{transform-origin:center;animation:floatBlobs 14s ease-in-out infinite}
+@keyframes floatBlobs{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-18px) translateX(8px)}100%{transform:translateY(0) translateX(0)}}
+
+/* 为卡片添加柔和背景图案（轻微噪点） */
+.card{background-image: radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px);background-size: 24px 24px, linear-gradient(180deg, rgba(250,250,250,0.9), rgba(250,250,250,0.98));}
+
+/* 增强蛋糕与倒计时区域的视觉对比 */
+.cake-area, .countdown{box-shadow:0 6px 18px rgba(15,23,42,0.04);}
+.hero{text-align:center;margin-bottom:12px}
+.hero h1{font-size:clamp(28px,5vw,44px);margin:6px 0;color:var(--accent);text-shadow:0 6px 20px rgba(255,122,162,0.06)}
+.hero .sub{color:var(--muted);margin:0}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:18px 0}
+.controls label{display:flex;flex-direction:column;font-size:13px;color:var(--muted)}
+.controls input[type="text"], .controls input[type="date"]{padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;width:200px}
+.buttons{display:flex;gap:8px;align-items:center}
+button{padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#ff6b94);color:#081428;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(255,109,135,0.12)}
+button.muted{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
+
+.widgets{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.countdown{padding:14px;border-radius:12px;background:var(--panel-bg);min-height:140px}
+.countdown h2{margin:0 0 8px 0;color:var(--accent-2)}
+#countdownDisplay{font-size:18px;color:#1b2937}
+
+.cake-area{padding:14px;border-radius:12px;background:var(--panel-bg);display:flex;flex-direction:column;align-items:center;gap:10px}
+.cake{position:relative;width:220px;height:180px;display:flex;align-items:center;justify-content:center}
+.cake svg{width:100%;height:100%;display:block}
+.candle{display:none}
+.flame{transform-origin:center center;transform-box:fill-box;filter: drop-shadow(0 6px 12px rgba(255,126,86,0.25));}
+
+/* 蛋糕脉冲动画（庆祝时短暂放大） */
+.cake.pulse{animation: cakePulse 700ms ease-in-out both}
+@keyframes cakePulse{
+  0%{transform:scale(1);}
+  30%{transform:scale(1.06);}
+  60%{transform:scale(0.99);}
+  100%{transform:scale(1);}
+}
+
+/* 蛋糕高光与粒子（倒计时到点后的专属效果） */
+.cake.glow{box-shadow:0 20px 60px rgba(255,130,150,0.22), 0 6px 20px rgba(255,200,210,0.14);transform:scale(1.03);transition:transform 300ms ease}
+.cakeSparkContainer{position:fixed;pointer-events:none;z-index:12;left:0;top:0}
+.cake-spark{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 40% 30%, #fff9d6 0%, #ffd166 30%, #ff7aa2 70%);opacity:0.95;transform-origin:center;}
+@keyframes sparkRise{
+  0%{transform:translateY(0) scale(1);opacity:1}
+  60%{opacity:1}
+  100%{transform:translateY(-160px) translateX(40px) scale(0.6);opacity:0}
+}
+
+/* 稍微不同方向的运动 */
+.cake-spark.dir-left{background:radial-gradient(circle at 40% 30%, #fff9d6 0%, #ffd166 30%, #9ad0ff 70%)}
+.cake-spark.dir-right{background:radial-gradient(circle at 40% 30%, #fff9d6 0%, #ffb4c7 30%, #ff7aa2 70%)}
+
+/* 气球 */
+#balloons{position:fixed;left:0;right:0;top:8vh;pointer-events:none;z-index:5}
+.balloon{position:absolute;width:48px;height:60px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;opacity:0.95}
+.balloon::after{content:"";position:absolute;left:50%;bottom:-10px;width:2px;height:12px;background:rgba(255,255,255,0.2);transform:translateX(-50%)}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-20px) translateX(6px)}100%{transform:translateY(-80vh) translateX(-6px)}}
+
+/* 彩屑画布 */
+.confetti-canvas{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:10}
+
+/* 侧栏装饰 */
+.side{position:fixed;top:50%;transform:translateY(-50%);z-index:7;display:flex;align-items:center}
+.side-left{left:120px}
+.side-right{right:120px}
+.side-card{background:var(--panel-bg);border-radius:12px;padding:10px 12px;box-shadow:0 8px 28px rgba(15,23,42,0.06);display:flex;flex-direction:column;align-items:center;gap:8px;min-width:120px}
+.side-title{font-weight:700;color:var(--accent);font-size:14px;text-align:center}
+.side-btn{padding:8px 10px;border-radius:8px;border:0;background:linear-gradient(90deg,var(--accent),#ff6b94);color:#081428;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(255,109,135,0.12)}
+.side-btn:hover{transform:translateY(-2px)}
+
+@media (max-width:820px){
+  .side{display:none}
+}
+
+/* 响应 */
+@media (max-width:820px){.widgets{grid-template-columns:1fr;}.cake{width:160px;height:120px}.controls input{width:100%}}
